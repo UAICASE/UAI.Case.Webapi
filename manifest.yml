@@ -1,0 +1,9 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: uaicase-webapi-dev
+  host: uaicase-webapi-dev
+  disk_quota: 1024M
+  services:

@@ -1,0 +1,1 @@
+http://www.slideshare.net/greensight/10-common-errors-when-pushing-apps-to-cloud-foundry

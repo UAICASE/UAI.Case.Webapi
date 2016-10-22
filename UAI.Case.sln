@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3CAE47B5-9A3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16E10E7B-5E8F-4E50-85F7-7F37A80F2498}"
 	ProjectSection(SolutionItems) = preProject
+		bluemix issues.txt = bluemix issues.txt
 		global.json = global.json
 	EndProjectSection
 EndProject
