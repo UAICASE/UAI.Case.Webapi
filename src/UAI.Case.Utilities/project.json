@@ -3,13 +3,9 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
-    "AutoMapper": "5.1.1",
-    "StructureMap.Dnx": "1.2.0",
     "UAI.Case.Domain": "1.0.0-*",
-    "UAI.Case.Dto": "1.0.0-*",
-    "UAI.Case.Repositories": "1.0.0-*",
     "UAI.Case.Security": "1.0.0-*",
-    "UAI.Case.Application": "1.0.0-*"
+    "MailKit": "1.8.1"
   },
 
   "frameworks": {

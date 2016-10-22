@@ -3,13 +3,11 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
-    "AutoMapper": "5.1.1",
-    "StructureMap.Dnx": "1.2.0",
+    "System.IdentityModel.Tokens.Jwt": "5.0.0",
+   // "System.IdentityModel.Tokens": "5.0.0-rc1-211161024",
     "UAI.Case.Domain": "1.0.0-*",
-    "UAI.Case.Dto": "1.0.0-*",
-    "UAI.Case.Repositories": "1.0.0-*",
-    "UAI.Case.Security": "1.0.0-*",
-    "UAI.Case.Application": "1.0.0-*"
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+    "UAI.Case.Exceptions": "1.0.0-*"
   },
 
   "frameworks": {
