@@ -6,4 +6,3 @@ applications:
   name: uaicase-webapi-dev
   host: uaicase-webapi-dev
   disk_quota: 1024M
-  services:
