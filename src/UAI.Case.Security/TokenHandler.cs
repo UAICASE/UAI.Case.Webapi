@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using UAI.Case.Exceptions;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

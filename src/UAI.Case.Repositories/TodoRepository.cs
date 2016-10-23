@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UAI.Case.Domain.Academico;
 using UAI.Case.Domain.Common;
-using UAI.Case.InMemoryProvider;
+
 
 namespace UAI.Case.Repositories
 {
