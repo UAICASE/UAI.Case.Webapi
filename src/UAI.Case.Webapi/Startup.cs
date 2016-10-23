@@ -132,7 +132,7 @@ namespace UAI.Case.Webapi
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
                 // Basic settings - signing key to validate with, audience and issuer.
-                IssuerSigningKey = Keys.RSAKey, //TODO: hacer la key constante, sino cada vez q inicia la app genera una nueva y el token anterior no funca
+                //IssuerSigningKey =Keys.RSAKey, //TODO: hacer la key constante, sino cada vez q inicia la app genera una nueva y el token anterior no funca
 
                 ValidAudience = TokenHandler.JWT_TOKEN_AUDIENCE,
                 ValidIssuer = TokenHandler.JWT_TOKEN_ISSUER,
