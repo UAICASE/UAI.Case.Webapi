@@ -21,12 +21,12 @@ namespace UAI.Case.Boot
         {
             Scan(a =>
             {
-                
-                //a.AssemblyContainingType(typeof(IAppService<>));
-                //a.IncludeNamespace(typeof(IAppService<>).Namespace);
+
+                a.AssemblyContainingType(typeof(IAppService<>));
+                a.IncludeNamespace(typeof(IAppService<>).Namespace);
                 a.WithDefaultConventions();
             });
-           // Policies.SetAllProperties(y => y.OfType<IAuthenticatedData>());
+           Policies.SetAllProperties(y => y.OfType<IAuthenticatedData>());
         }
 
     

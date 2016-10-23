@@ -61,16 +61,17 @@ namespace UAI.Case.Boot
             var container = new Container(c =>
             {
 
-              
-        //    c.For<typeof(IDbContext<>)>().Singleton().Use(()=>new UaiCaseContext<>);
-         
-            //c.For(typeof(IRepository<>)).Use(typeof(Repository<>));
-            //c.For<IAuthDataExtractor>().Use<AuthDataExtractor>();
-            //c.For<IHttpContextAccessor>().Use<HttpContextAccessor>();
-            //c.For<IAuthenticatedData>().Use(_ => _.GetInstance<IAuthDataExtractor>().GetCurrentData());
-            //c.For(typeof(ITodoRepository)).Use(typeof(TodoRepository));
-            //c.AddRegistry(new AppServiceRegistry());
-            c.AddRegistry(new RepositoryRegistry());
+
+               //  c.For(typeof(IDbContext<>)).Singleton().Use(new UaiCaseContext<>());
+
+                c.For(typeof(IDbContext<>)).Use(typeof(UaiCaseContext<>));
+                c.For(typeof(IRepository<>)).Use(typeof(Repository<>));
+                c.For<IAuthDataExtractor>().Use<AuthDataExtractor>();
+                c.For<IHttpContextAccessor>().Use<HttpContextAccessor>();
+                c.For<IAuthenticatedData>().Use(_ => _.GetInstance<IAuthDataExtractor>().GetCurrentData());
+                c.For(typeof(ITodoRepository)).Use(typeof(TodoRepository));
+                c.AddRegistry(new AppServiceRegistry());
+                c.AddRegistry(new RepositoryRegistry());
 
           
 

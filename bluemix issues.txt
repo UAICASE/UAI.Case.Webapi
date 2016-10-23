@@ -1,1 +1,2 @@
 http://www.slideshare.net/greensight/10-common-errors-when-pushing-apps-to-cloud-foundry
+http://www.ibm.com/developerworks/cloud/library/cl-bluemix-autoscale/index.html
