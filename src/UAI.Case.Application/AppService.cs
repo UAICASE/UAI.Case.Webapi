@@ -52,19 +52,14 @@ namespace UAI.Case.Application
         public virtual void OnBeforeSaveOrUpdate(T entity) {}
         public virtual void OnBeforeDelete(T entity) { }
         public virtual void OnAfterSaveOrUpdate(T entity) {
-
-
-
-          
+                     
 
         }
 
-    
-       
+           
         protected IRepository<T> Repository { get; set; }
         protected IUsuarioAppService _usuarioAppService = null;
-        
-
+    
         public AppService(IRepository<T> repository)
         {
            
