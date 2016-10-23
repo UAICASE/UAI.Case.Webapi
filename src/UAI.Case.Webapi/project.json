@@ -21,8 +21,8 @@
     "UAI.Case.Application": "1.0.0-*",
     "UAI.Case.Domain": "1.0.0-*",
     "UAI.Case.Security": "1.0.0-*",
-    "Microsoft.AspNetCore.SignalR.Server": "0.2.0-*",
-    "Microsoft.AspNetCore.WebSockets": "0.2.0-*",
+    "Microsoft.AspNetCore.SignalR.Server": "0.2.0-preview2-22516",
+    "Microsoft.AspNetCore.WebSockets":"0.2.0-preview2-22516",
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0-*",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0"

@@ -1,2 +1,5 @@
 http://www.slideshare.net/greensight/10-common-errors-when-pushing-apps-to-cloud-foundry
-http://www.ibm.com/developerworks/cloud/library/cl-bluemix-autoscale/index.html
+http://www.ibm.com/developerworks/cloud/library/cl-bluemix-autoscale/index.htm
+
+--ver
+https://www.bountysource.com/issues/38465757-signalr-core-server-crashes-on-client-connect-nullreferenceexception
