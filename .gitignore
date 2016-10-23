@@ -1,0 +1,14 @@
+src/UAI.Case.Security/obj/
+project.lock.json
+src/UAI.Case.Repositories/obj/
+src/UAI.Case.Webapi/obj/
+src/UAI.Case.Webapi/bin/
+src/UAI.Case.Utilities/obj/
+src/UAI.Case.Repositories/bin/
+src/UAI.Case.Domain/obj/
+src/UAI.Case.Application/bin/
+src/UAI.Case.Application/obj/
+src/UAI.Case.Domain/bin/
+src/UAI.Case.Security/bin/
+.vs/
+src/UAI.Case.Utilities/bin/
