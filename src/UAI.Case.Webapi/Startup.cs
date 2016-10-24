@@ -19,19 +19,70 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Diagnostics;
 using UAI.Case.Boot;
 using StructureMap;
+using Newtonsoft.Json.Linq;
+using UAI.Case.EFProvider;
+using System.IO;
+using UAI.Case.Domain.Interfaces;
 
 namespace UAI.Case.Webapi
 {
     public class Startup
     {
+
+        private ICreds getCredsFromComposePostgreeSQL(string uri)
+        {
+            Creds cr = new Creds();
+
+
+
+            return cr;
+        }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
+                 .AddJsonFile("vcap-local.json", optional: false, reloadOnChange:true)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            ICreds creds;
+            string vcapServices = System.Environment.GetEnvironmentVariable("VCAP_SERVICES");
+            if (vcapServices != null)
+            {
+                dynamic json = JsonConvert.DeserializeObject(vcapServices);
+
+             
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+              
+
+
+                Configuration["pgsql:0:credentials:username"] = "localhost:27017";
+                Configuration["pgsql:0:credentials:password"] = "admin";
+                Configuration["pgsql:0:credentials:host"] = "password";
+                Configuration["pgsql:0:credentials:cs"] = "password";
+
+            }
+            else
+            {
+                string cs= Configuration["local_db:cs"];
+                Configuration["pgsql:0:credentials:cs"] = cs;
+            }
+
+
+
+
+
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -39,8 +90,6 @@ namespace UAI.Case.Webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            //services.AddMvc();
 
 
             services.AddAuthorization(auth =>
@@ -72,12 +121,23 @@ namespace UAI.Case.Webapi
                 var s = new JsonSerializerSettings();
             });
 
-             var cs= Configuration["Data:DefaultConnection:ConnectionString"];
+            //var cs= Configuration["Data:DefaultConnection:ConnectionString"];
 
-             var container = Booter.Run(cs);
+
+            var creds = new Creds()
+            {
+                username = Configuration["pgsql:0:credentials:username"],
+                password = Configuration["pgsql:0:credentials:password"],
+                host = Configuration["pgsql:0:credentials:host"],
+                cs = Configuration["pgsql:0:credentials:cs"]
+            };
+
+
+
+
+
+            var container = Booter.Run(creds);
             container.Populate(services);
-
-
              return container.GetInstance<IServiceProvider>();
 
 
@@ -131,22 +191,11 @@ namespace UAI.Case.Webapi
 
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
-                // Basic settings - signing key to validate with, audience and issuer.
-                //IssuerSigningKey =Keys.RSAKey, //TODO: hacer la key constante, sino cada vez q inicia la app genera una nueva y el token anterior no funca
 
+                IssuerSigningKey = Keys.RSAKey,
                 ValidAudience = TokenHandler.JWT_TOKEN_AUDIENCE,
                 ValidIssuer = TokenHandler.JWT_TOKEN_ISSUER,
-
-                // When receiving a token, check that we've signed it.
-                //ValidateSignature = true,
-
-                // When receiving a token, check that it is still valid.
                 ValidateLifetime = true,
-
-                // This defines the maximum allowable clock skew - i.e. provides a tolerance on the token expiry time 
-                // when validating the lifetime. As we're creating the tokens locally and validating them on the same 
-                // machines which should have synchronised time, this can be set to zero. Where external tokens are
-                // used, some leeway here could be useful.
                 ClockSkew = TimeSpan.FromMinutes(0) //TimeSpan.Zero
             };
 
@@ -178,7 +227,7 @@ namespace UAI.Case.Webapi
                 .AllowCredentials()
             );
 
-            // app.UseSignalR();
+             app.UseSignalR();
 
 
 
@@ -195,6 +244,7 @@ namespace UAI.Case.Webapi
 
             var host = new WebHostBuilder()
                         .UseKestrel()
+                         .UseContentRoot(Directory.GetCurrentDirectory())
                         .UseConfiguration(config)
                         .UseStartup<Startup>()
                         .Build();

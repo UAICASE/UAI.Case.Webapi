@@ -12,6 +12,8 @@ using UAI.Case.Dto;
 using UAI.Case.Repositories;
 using UAI.Case.Security;
 using Microsoft.AspNetCore.Http;
+using UAI.Case.Domain.Interfaces;
+using UAI.Case.EFProvider;
 
 namespace UAI.Case.Boot
 {
@@ -55,16 +57,16 @@ namespace UAI.Case.Boot
 
         
 
-        public static Container Run(String cs)
+        public static Container Run(ICreds creds)
         {
             //var configuration = NHibernateInitializer.Initialize(cn);
             var container = new Container(c =>
             {
 
 
-               //  c.For(typeof(IDbContext<>)).Singleton().Use(new UaiCaseContext<>());
+                c.For(typeof(ICreds)).Singleton().Use(creds);
 
-                c.For(typeof(IDbContext<>)).Use(typeof(UaiCaseContext<>));
+                c.For<IDbContext>().Singleton().Use(() => new UaiCaseContext(creds.cs));
                 c.For(typeof(IRepository<>)).Use(typeof(Repository<>));
                 c.For<IAuthDataExtractor>().Use<AuthDataExtractor>();
                 c.For<IHttpContextAccessor>().Use<HttpContextAccessor>();

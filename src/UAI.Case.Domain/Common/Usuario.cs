@@ -8,6 +8,7 @@ using UAI.Case.Domain.Roles;
 
 namespace UAI.Case.Domain.Common
 {
+    
     public class Usuario : Entity
     
     {

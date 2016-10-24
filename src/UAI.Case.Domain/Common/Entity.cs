@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,12 +9,7 @@ using UAI.Case.Domain.Interfaces;
 
 namespace UAI.Case.Domain.Common
 {
-    public abstract class Entity : EntityWithTypedId<Guid>
-    { }
-
-    
-    public abstract class EntityWithTypedId<TId>
-    {
+    public abstract class Entity   {
         private int? requestedHashCode;
 
 
@@ -20,12 +17,15 @@ namespace UAI.Case.Domain.Common
         public virtual DateTime? FechaEliminacion { get; set; }
         public virtual DateTime? FechaCreacion { get; set; }
         //public virtual Usuario Usuario { get; set; }
+        public string Rev { get; set; }
 
-        public virtual TId Id { get;  set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual Guid Id { get;  set; }
 
         //public virtual int Version { get; private set; }
 
-        public virtual bool Equals(EntityWithTypedId<TId> other)
+        public virtual bool Equals(Entity other)
         {
             if (null == other)
                 return false;
@@ -35,7 +35,7 @@ namespace UAI.Case.Domain.Common
 
         public virtual bool IsTransient()
         {
-            return Equals(Id, default(TId));
+            return Equals(Id, default(Guid));
         }
 
         public virtual bool isDeleted()
@@ -45,7 +45,7 @@ namespace UAI.Case.Domain.Common
 
         public override bool Equals(object obj)
         {
-            var that = obj as EntityWithTypedId<TId>;
+            var that = obj as Entity;
             return Equals(that);
         }
 

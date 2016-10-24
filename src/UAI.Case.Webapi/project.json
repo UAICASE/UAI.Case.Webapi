@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
@@ -26,6 +26,7 @@
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0-*",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0"
+    
   },
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel"
@@ -35,7 +36,9 @@
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
-          "portable-net461+netcore45+wp81+wpa81+dnxcore50"
+        "dnxcore50",
+        "netcore45",
+        "portable-net461+netcore45+wp81+wpa81+dnxcore50"
       ]
     }
   },

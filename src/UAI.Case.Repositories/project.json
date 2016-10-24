@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
@@ -6,12 +6,13 @@
     "UAI.Case.Domain": "1.0.0-*",
     "Microsoft.AspNetCore.Http.Features": "1.0.0",
     "UAI.Case.Security": "1.0.0-*",
-    "System.Linq.Queryable": "4.0.1-rc2-24027"
+    "System.Linq.Queryable": "4.0.1",
+    "UAI.Case.EFProvider": "1.0.0-*"
   },
 
   "frameworks": {
       "netstandard1.6": {
-      "imports":  "dnxcore50" 
+        "imports": [ "dnxcore50" ]
     }
   }
 }

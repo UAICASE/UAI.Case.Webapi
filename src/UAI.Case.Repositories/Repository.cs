@@ -8,6 +8,8 @@ using UAI.Case.Domain.Common;
 using UAI.Case.Domain.Interfaces;
 using System.Text;
 using UAI.Case.Security;
+using UAI.Case.EFProvider;
+
 
 namespace UAI.Case.Repositories
 {
@@ -30,8 +32,9 @@ namespace UAI.Case.Repositories
 
        // private readonly ISessionFactory _sessionFactory;
         IHttpContextAccessor _context;
-       protected IDbContext<T> _db;
-        public Repository(IHttpContextAccessor context, IDbContext<T> db)
+       protected IDbContext _db;
+        
+        public Repository(IHttpContextAccessor context, IDbContext db)
         {
             
             _db= db;
@@ -46,8 +49,9 @@ namespace UAI.Case.Repositories
             
             //TODO: pasar esto a un NH event listener y ver como se puede poner un defautl where deleted=0
             entity.FechaEliminacion = DateTime.Now;
-            // _db.Set<T>().Remove(entity);
-            _db.Remove(entity);
+            //_db.Remove(entity);
+            _db.Set<T>().Remove(entity);
+            _db.Commit();
             
         }
 
@@ -55,18 +59,20 @@ namespace UAI.Case.Repositories
 
         public T Get(object id)
         {
-            //   var o = _db.Set<T>().Where(p=>p.Id.Equals(id)).FirstOrDefault();
+              var o = _db.Set<T>().Where(p=>p.Id.Equals(id)).FirstOrDefault();
 
-            return _db.Get(id);
+            return o;
         }
 
        
         public IQueryable<T> GetAll()
         {
-            return _db.GetAll();
-            
-            
-            // _db.Set<T>();
+
+            var col = _db.Set<T>();
+            return col;
+
+
+            //return _db.Set<T>();
         }
 
      
@@ -93,16 +99,16 @@ namespace UAI.Case.Repositories
 
                     if (asignable.Usuario == null)
                     {
-                        usuario = new Usuario();//_db.Set<Usuario>().Where(p=>p.Id.Equals(_authenticatedData.UsuarioId)).FirstOrDefault();
+                        usuario = new Usuario();// _users.Get(_authenticatedData.UsuarioId);//.Where(p=>p.Id.Equals(_authenticatedData.UsuarioId)).FirstOrDefault();
                         
                         asignable.Usuario = usuario;
                     }
 
                     }
 
-            //_db.Set<T>().Add(entity);
-            //_db.Commit();
-            _db.Save(entity);
+            _db.Set<T>().Add(entity);
+            _db.Commit();
+//            _db.SaveOrUpdate(entity);
             return entity;
         }
 

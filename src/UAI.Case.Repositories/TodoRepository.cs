@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UAI.Case.Domain.Academico;
 using UAI.Case.Domain.Common;
-
+using UAI.Case.EFProvider;
 
 namespace UAI.Case.Repositories
 {
@@ -18,7 +18,7 @@ namespace UAI.Case.Repositories
     }
     public class TodoRepository : Repository<Todo>, ITodoRepository
     {
-        public TodoRepository(IDbContext<Todo> db, IHttpContextAccessor context) : base(context,db) { }
+        public TodoRepository(IDbContext db, IHttpContextAccessor context) : base(context,db) { }
 
         public long  GetPendientes(Guid IdUsuario)
         {
@@ -37,7 +37,7 @@ namespace UAI.Case.Repositories
                 //qry.SetParameter("done", false);
 
 
-                long res = _db.GetAll().Count();// _db.FromSQL<AlumnoCursoGrupo>(qry, IdUsuario.ToString(), "False").ToList().Count();
+                long res =  _db.FromSQL<AlumnoCursoGrupo>(qry, IdUsuario.ToString(), "False").ToList().Count();
                 return res;
             }
             catch (Exception)

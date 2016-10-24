@@ -12,5 +12,7 @@ namespace UAI.Case.Application
     public class AdminAppService : AppService<Admin>, IAdminAppService
     {
         public AdminAppService(IRepository<Admin> repository) : base(repository) { }
+
+        
     }
 }
