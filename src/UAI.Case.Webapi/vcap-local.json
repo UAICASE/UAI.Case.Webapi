@@ -1,5 +1,5 @@
 ﻿{
-  "local_db": {
+  "compose-for-postgresql": {
     "db_type": "postgresql",
     "name": "bmix_dal_yp_c174f197_3cb8_411a_a19c_f97312dd87ed",
     "uri_cli": "psql \"sslmode=require host=sl-us-dal-9-portal.4.dblayer.com port=16190 dbname=compose user=admin\"",

@@ -37,50 +37,49 @@ namespace UAI.Case.Webapi
 
             return cr;
         }
-
+        ICreds creds;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                 .AddJsonFile("vcap-local.json", optional: false, reloadOnChange:true)
+                 .AddJsonFile("vcap-local.json", optional: true, reloadOnChange:true)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            ICreds creds;
+             creds = new Creds();
             string vcapServices = System.Environment.GetEnvironmentVariable("VCAP_SERVICES");
             if (vcapServices != null)
             {
                 dynamic json = JsonConvert.DeserializeObject(vcapServices);
-
-             
-                try
+                foreach (dynamic obj in json.Children())
                 {
-
+                    if (((string)obj.Name).ToLowerInvariant().Contains("compose-for-postgresql"))
+                    {
+                        dynamic credentials = (((JProperty)obj).Value[0] as dynamic).credentials;
+                        if (credentials != null)
+                        {
+                            string uri = credentials.uri;
+                            creds.GetDataFromUri(uri);
+                            break;
+                        }
+                    }
                 }
-                catch (Exception)
-                {
 
-                    throw;
-                }
               
-
-
-                Configuration["pgsql:0:credentials:username"] = "localhost:27017";
-                Configuration["pgsql:0:credentials:password"] = "admin";
-                Configuration["pgsql:0:credentials:host"] = "password";
-                Configuration["pgsql:0:credentials:cs"] = "password";
 
             }
             else
             {
-                string cs= Configuration["local_db:cs"];
-                Configuration["pgsql:0:credentials:cs"] = cs;
-            }
+                string uri = Configuration["compose-for-postgresql:uri"];
+                creds.GetDataFromUri(uri);
+                                   
+                
+          }
 
 
-
+            Console.WriteLine(creds.cs);
 
 
         }
@@ -120,20 +119,6 @@ namespace UAI.Case.Webapi
             services.Configure<MvcOptions>(options => {
                 var s = new JsonSerializerSettings();
             });
-
-            //var cs= Configuration["Data:DefaultConnection:ConnectionString"];
-
-
-            var creds = new Creds()
-            {
-                username = Configuration["pgsql:0:credentials:username"],
-                password = Configuration["pgsql:0:credentials:password"],
-                host = Configuration["pgsql:0:credentials:host"],
-                cs = Configuration["pgsql:0:credentials:cs"]
-            };
-
-
-
 
 
             var container = Booter.Run(creds);

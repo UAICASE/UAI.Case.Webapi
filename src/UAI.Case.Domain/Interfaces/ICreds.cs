@@ -10,7 +10,12 @@ namespace UAI.Case.Domain.Interfaces
       string username { get; set; }
       string password { get; set; }
       string host { get; set; }
-        string cs { get; set; }
+      string uri { get; set; }
+      string cs { get; set; }
+      string port { get; set; }
+      string  database { get; set; }
+
+      void GetDataFromUri(string uri);
 
     }
 }
