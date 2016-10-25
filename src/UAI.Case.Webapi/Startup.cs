@@ -114,6 +114,7 @@ namespace UAI.Case.Webapi
             services.AddSignalR(options => {
                 options.Hubs.EnableDetailedErrors = true;
                 options.EnableJSONP = true;
+                
             });
 
             services.Configure<MvcOptions>(options => {
