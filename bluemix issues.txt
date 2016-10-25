@@ -14,6 +14,9 @@ signalr
 http://stackoverflow.com/questions/28233885/signalr-structuremap-dependency-resolver-specified-for-microsoft-aspnet-signal/28242464#28242464
 http://stackoverflow.com/questions/31793209/signalr-resolving-imessagebus
 
+
+
+https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-net-core-1-1-preview-1/
 error:
 Error while building type Microsoft.AspNetCore.SignalR.Messaging.MessageBus.  
 See the inner exception for details\n1.) new MessageBus(*Default of IStringMinifier*, 
