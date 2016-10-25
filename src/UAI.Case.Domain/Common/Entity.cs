@@ -20,7 +20,7 @@ namespace UAI.Case.Domain.Common
         public string Rev { get; set; }
 
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get;  set; }
 
         

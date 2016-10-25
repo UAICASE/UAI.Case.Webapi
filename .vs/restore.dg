@@ -1,6 +1,3 @@
-#:D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Domain\UAI.Case.Domain.xproj
-#:D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.EFProvider\UAI.Case.EFProvider.xproj
-D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.EFProvider\UAI.Case.EFProvider.xproj|D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Domain\UAI.Case.Domain.xproj
 #:D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Security\UAI.Case.Security.xproj
 D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Security\UAI.Case.Security.xproj|D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Domain\UAI.Case.Domain.xproj
 #:D:\Trabajos\github\UAI.Case.Webapi\src\UAI.Case.Repositories\UAI.Case.Repositories.xproj

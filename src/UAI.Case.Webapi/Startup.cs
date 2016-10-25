@@ -173,11 +173,12 @@ namespace UAI.Case.Webapi
 
 
 
-
+            var key = Convert.FromBase64String("my super secret key goes here");
+            
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
 
-                IssuerSigningKey = Keys.RSAKey,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidAudience = TokenHandler.JWT_TOKEN_AUDIENCE,
                 ValidIssuer = TokenHandler.JWT_TOKEN_ISSUER,
                 ValidateLifetime = true,
@@ -186,6 +187,7 @@ namespace UAI.Case.Webapi
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
+                
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 TokenValidationParameters = tokenValidationParameters
