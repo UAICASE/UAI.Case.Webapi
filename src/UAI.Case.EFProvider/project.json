@@ -2,10 +2,10 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
+    "NETStandard.Library": "1.6.1-preview1-*",
+    "Microsoft.EntityFrameworkCore": "1.1.0-preview2-*",
     "UAI.Case.Domain": "1.0.0-*",
-    "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.1",
+    "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.2",
     "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.2",
     "Npgsql": "3.1.8"
   },
