@@ -1,4 +1,12 @@
 ﻿{
+  "mail-accounts": {
+    "registros": {
+      "account": "uai.case.registros@gmail.com",
+      "smtp": "smtp.gmail.com",
+      "port": "587",
+      "password": "3l3c720n"
+    }
+  },
   "compose-for-postgresql": {
     "db_type": "postgresql",
     "name": "bmix_dal_yp_c174f197_3cb8_411a_a19c_f97312dd87ed",

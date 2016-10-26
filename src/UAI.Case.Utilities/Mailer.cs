@@ -14,17 +14,18 @@ namespace UAI.Case.Utilities
     public static class Mailer
     {
 
+        
 
-        private async static Task Send(MimeMessage message)
+        private async static Task Send(MimeMessage message, IMailAccount mail)
         {
             //sacar a config
 
             SmtpClient client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587);
+            client.Connect(mail.smtp, mail.port);
             client.AuthenticationMechanisms.Remove("XOAUTH2");
 
             // Note: only needed if the SMTP server requires authentication
-            client.Authenticate("uai.case.registros@gmail.com", "3l3c720n");
+            client.Authenticate(mail.account, mail.password);
 
             await client.SendAsync(message);
             client.Disconnect(true);
@@ -32,7 +33,7 @@ namespace UAI.Case.Utilities
 
         }
 
-        public async static Task SendActivateRequest(Usuario usuario, string currentUrl)
+        public async static Task SendActivateRequest(Usuario usuario, string currentUrl,IMailAccount mail)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace UAI.Case.Utilities
 
                 message.Body = builder.ToMessageBody();
 
-                await Send(message);
+                await Send(message,mail);
                 
 
             }
@@ -61,43 +62,11 @@ namespace UAI.Case.Utilities
         }
 
 
-        public async static Task SendRegistrationRequest(string currentUrl, string registerToken, string mail)
+        public async static Task SendRegistrationRequest(string currentUrl, string registerToken, string mail, IMailAccount account)
         {
-            ////TODO: Factorizar
-            //try
-            //{
-            //    SmtpClient client = new SmtpClient();
-            //    client.Port = 587;
-            //    client.Host = "smtp.gmail.com";
-            //    client.EnableSsl = true;
-            //    client.Timeout = 10000;
-            //    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //    client.UseDefaultCredentials = false;
-            //    client.Credentials = new System.Net.NetworkCredential("uai.case.registros@gmail.com", "3l3c720n");
+           
 
-
-
-            //    MailMessage mm = new MailMessage(
-            //        "uai.case.registros@gmail.com", mail, "UAI CASE - Registrarse",
-
-            //        " haga click <a href='http://" + currentUrl + "?register=" + registerToken + "'>aquí</a> para registrarse");
-
-
-            //    mm.BodyEncoding = UTF8Encoding.UTF8;
-            //    mm.IsBodyHtml = true;
-            //    mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-
-            //    client.Send(mm);
-            //    return true;
-
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.Write(e.Message);
-            //    throw new Exception(e.Message, e);
-            //}
-
-            await Send(null);
+            await Send(null, account);
         }
 
        

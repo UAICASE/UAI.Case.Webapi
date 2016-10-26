@@ -25,6 +25,8 @@ using Newtonsoft.Json.Linq;
 using UAI.Case.EFProvider;
 using System.IO;
 using UAI.Case.Domain.Interfaces;
+using System.Dynamic;
+using UAI.Case.Utilities;
 
 namespace UAI.Case.Webapi
 {
@@ -39,6 +41,11 @@ namespace UAI.Case.Webapi
 
             return cr;
         }
+
+
+
+
+        IRegistrosMailAccount mail1;
         ICreds creds;
         public Startup(IHostingEnvironment env)
         {
@@ -50,13 +57,28 @@ namespace UAI.Case.Webapi
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-             creds = new Creds();
+            creds = new Creds();
+            mail1 = new MailAccountConfig();
+
             string vcapServices = System.Environment.GetEnvironmentVariable("VCAP_SERVICES");
             if (vcapServices != null)
             {
                 dynamic json = JsonConvert.DeserializeObject(vcapServices);
                 foreach (dynamic obj in json.Children())
                 {
+
+
+                    if (((string)obj.Name).ToLowerInvariant().Contains("mail-accounts"))
+                    {
+                        dynamic registros = (((JProperty)obj).Value[0] as dynamic).registros;
+                        if (registros != null)
+                        {
+                            mail1.account = registros.account;
+                            
+                            
+                        }
+                    }
+
                     if (((string)obj.Name).ToLowerInvariant().Contains("compose-for-postgresql"))
                     {
                         dynamic credentials = (((JProperty)obj).Value[0] as dynamic).credentials;
@@ -64,7 +86,7 @@ namespace UAI.Case.Webapi
                         {
                             string uri = credentials.uri;
                             creds.GetDataFromUri(uri);
-                            break;
+                            //break;
                         }
                     }
                 }
@@ -75,6 +97,13 @@ namespace UAI.Case.Webapi
             else
             {
                 string uri = Configuration["compose-for-postgresql:uri"];
+                mail1.account = Configuration["mail-accounts:registros:account"];
+                mail1.port = int.Parse(Configuration["mail-accounts:registros:port"]);
+                mail1.smtp = Configuration["mail-accounts:registros:smtp"];
+                mail1.password = Configuration["mail-accounts:registros:password"];
+
+
+
                 creds.GetDataFromUri(uri);
                                    
                 
@@ -82,7 +111,7 @@ namespace UAI.Case.Webapi
 
 
             Console.WriteLine(creds.cs);
-
+            
 
         }
 
@@ -124,7 +153,7 @@ namespace UAI.Case.Webapi
             });
 
 
-            var container = Booter.Run(creds);
+            var container = Booter.Run(creds,mail1);
             container.Populate(services);
              return container.GetInstance<IServiceProvider>();
 

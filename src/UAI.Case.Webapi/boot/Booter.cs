@@ -14,6 +14,7 @@ using UAI.Case.Security;
 using Microsoft.AspNetCore.Http;
 using UAI.Case.Domain.Interfaces;
 using UAI.Case.EFProvider;
+using UAI.Case.Utilities;
 
 namespace UAI.Case.Boot
 {
@@ -57,7 +58,7 @@ namespace UAI.Case.Boot
 
         
 
-        public static Container Run(ICreds creds)
+        public static Container Run(ICreds creds, IRegistrosMailAccount mail1)
         {
             //var configuration = NHibernateInitializer.Initialize(cn);
             var container = new Container(c =>
@@ -65,6 +66,7 @@ namespace UAI.Case.Boot
 
 
                 c.For(typeof(ICreds)).Singleton().Use(creds);
+                c.For(typeof(IRegistrosMailAccount)).Singleton().Use(mail1);
 
                 c.For<IDbContext>().Singleton().Use(() => new UaiCaseContext(creds.cs));
                 c.For(typeof(IRepository<>)).Use(typeof(Repository<>));
@@ -74,8 +76,8 @@ namespace UAI.Case.Boot
                 c.For(typeof(ITodoRepository)).Use(typeof(TodoRepository));
                 c.AddRegistry(new AppServiceRegistry());
                 c.AddRegistry(new RepositoryRegistry());
+                c.Policies.SetAllProperties(y => y.OfType<IRegistrosMailAccount>());
 
-          
 
             });
             //NHibernateInitializer.UpdateSchema(configuration, container.GetInstance<ISessionFactory>());

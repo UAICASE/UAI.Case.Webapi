@@ -25,8 +25,10 @@ namespace UAI.Case.Webapi.Controllers
         private IUsuarioAppService _usuarioAppService;
         private IAlumnoAppService _alumnoAppService;
         IRequestRegisterTokenAppService _requestRegisterTokenAppService;
-        public UsuariosController(IUsuarioAppService usuarioAppService, IRequestRegisterTokenAppService requestRegisterTokenAppService, IAlumnoAppService alumnoAppService)
+        IRegistrosMailAccount _mail;
+        public UsuariosController(IUsuarioAppService usuarioAppService, IRequestRegisterTokenAppService requestRegisterTokenAppService, IAlumnoAppService alumnoAppService, IRegistrosMailAccount mail)
         {
+            _mail = mail;
             _alumnoAppService = alumnoAppService;
             _requestRegisterTokenAppService = requestRegisterTokenAppService;
 
@@ -46,7 +48,7 @@ namespace UAI.Case.Webapi.Controllers
             tk.Mail = register.Mail;
             
             _requestRegisterTokenAppService.SaveOrUpdate(tk);
-            Mailer.SendRegistrationRequest(currentUrl, tk.Id.ToString(), register.Mail);
+            Mailer.SendRegistrationRequest(currentUrl, tk.Id.ToString(), register.Mail,_mail);
             return Ok(null);
 
         }
@@ -80,7 +82,7 @@ namespace UAI.Case.Webapi.Controllers
         public IActionResult RequestActivateUser(Guid id)
         {
             Usuario u = _usuarioAppService.Get(id);
-            _usuarioAppService.SendActivationRequest(u, HttpContext.Request.Host.Value,u.IdRegisterRequestUserId);
+            _usuarioAppService.SendActivationRequest(u, HttpContext.Request.Host.Value,u.IdRegisterRequestUserId,_mail);
 
             return Ok(u);
         }

@@ -11,13 +11,13 @@ namespace UAI.Case.Application
     public interface IUsuarioAppService : IAppService<Usuario>
     {
         Usuario GetByUsernamePassword(string username, string password);
-        Usuario SendActivationRequest(Usuario usuario, string currentUrl, Guid IdUsuarioSolicitud);
+        Usuario SendActivationRequest(Usuario usuario, string currentUrl, Guid IdUsuarioSolicitud,IRegistrosMailAccount mail);
 
     }
     public class UsuarioAppService : AppService<Usuario>, IUsuarioAppService
     {
 
-        public Usuario SendActivationRequest(Usuario usuario, String currentUrl, Guid IdUsuarioSolicitud)
+        public Usuario SendActivationRequest(Usuario usuario, String currentUrl, Guid IdUsuarioSolicitud, IRegistrosMailAccount mail)
         {
             if (usuario != null)
             {
@@ -28,7 +28,7 @@ namespace UAI.Case.Application
                 usuario.Active = false;
                 usuario.RegisterToken = Security.RegisterHandler.GenerateRegisterToken(usuario.Id);
                 usuario.IdRegisterRequestUserId = IdUsuarioSolicitud;
-                Mailer.SendActivateRequest(usuario, currentUrl);
+                Mailer.SendActivateRequest(usuario, currentUrl,mail);
                 SaveOrUpdate(usuario);
 
 
@@ -43,10 +43,11 @@ namespace UAI.Case.Application
         public override void OnBeforeSaveOrUpdate(Usuario entity)
         {
         }
-      
+
+        
         public UsuarioAppService(IRepository<Usuario> usuarioRepository) : base(usuarioRepository)
         {
-      
+            
         }
 
         public Usuario GetByUsernamePassword(string mail, string password)

@@ -11,6 +11,7 @@ using UAI.Case.Domain.Enums;
 using UAI.Case.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
 using UAI.Case.Security;
+using UAI.Case.Utilities;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,9 +25,11 @@ namespace UAI.Case.Webapi.Controllers
         IAlumnoAppService _alumnoAppService;
         IUsuarioAppService _usuarioAppService;
         IRequestRegisterTokenAppService _requestRegisterTokenAppService;
-        public AlumnoController(IAlumnoAppService alumnoAppService, IUsuarioAppService usuarioAppService, IRequestRegisterTokenAppService requestRegisterTokenAppService)
+        IRegistrosMailAccount _mail;
+        public AlumnoController(IAlumnoAppService alumnoAppService, IUsuarioAppService usuarioAppService, IRequestRegisterTokenAppService requestRegisterTokenAppService, IRegistrosMailAccount mail)
         {
-            _alumnoAppService= alumnoAppService;
+            _mail = mail;
+            _alumnoAppService = alumnoAppService;
             _usuarioAppService = usuarioAppService;
             _requestRegisterTokenAppService = requestRegisterTokenAppService;
         }
@@ -64,7 +67,7 @@ namespace UAI.Case.Webapi.Controllers
                 alumno.Rol = Rol.Alumno;
                 alumno.Mail = tk.Mail;
                 Usuario usuario = _alumnoAppService.SaveOrUpdate(alumno);
-                _usuarioAppService.SendActivationRequest(usuario, HttpContext.Request.Host.Value,tk.Usuario.Id);
+                _usuarioAppService.SendActivationRequest(usuario, HttpContext.Request.Host.Value,tk.Usuario.Id,_mail);
                 _requestRegisterTokenAppService.SaveOrUpdate(tk);
                 return Ok(usuario);
             }
