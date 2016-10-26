@@ -6,4 +6,3 @@ applications:
   name: uaicase-webapi-dev
   host: uaicase-webapi-dev
   disk_quota: 2048M
-  buildpack: dotnet-dev-ubuntu-x64.1.0.0-preview2.1-003155.tar.gz
