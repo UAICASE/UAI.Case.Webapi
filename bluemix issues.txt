@@ -1,0 +1,38 @@
+http://www.slideshare.net/greensight/10-common-errors-when-pushing-apps-to-cloud-foundry
+http://www.ibm.com/developerworks/cloud/library/cl-bluemix-autoscale/index.htm
+
+
+ejemplo EF
+https://github.com/IBM-Bluemix/aspnet-core-todo/tree/master/src/EFCoreToDo
+
+--ver
+https://www.bountysource.com/issues/38465757-signalr-core-server-crashes-on-client-connect-nullreferenceexception
+
+
+
+signalr-core
+https://radu-matei.github.io/blog/signalr-core/
+
+
+http://stackoverflow.com/questions/28233885/signalr-structuremap-dependency-resolver-specified-for-microsoft-aspnet-signal/28242464#28242464
+http://stackoverflow.com/questions/31793209/signalr-resolving-imessagebus
+
+##posible issue
+https://github.com/aspnet/SignalR-Server/issues/238
+
+
+
+
+https://blogs.msdn.microsoft.com/dotnet/2016/10/25/announcing-net-core-1-1-preview-1/
+error:
+Error while building type Microsoft.AspNetCore.SignalR.Messaging.MessageBus.  
+See the inner exception for details\n1.) new MessageBus(*Default of IStringMinifier*, 
+*Default of ILoggerFactory*, *Default of IPerformanceCounterManager*, 
+*Default of IOptions<MessageBusOptions>*)\n2.) 
+
+Microsoft.AspNetCore.SignalR.Messaging.MessageBus\n3.) 
+Instance of Microsoft.AspNetCore.SignalR.Messaging.IMessageBus 
+(Microsoft.AspNetCore.SignalR.Messaging.MessageBus)\n4.)
+new AckSubscriber(*Default of IMessageBus*, *Default of IAckHandler*)\n5.)
+Microsoft.AspNetCore.SignalR.Infrastructure.AckSubscriber\n6.) 
+Instance of Microsoft.AspNetCore.SignalR.Infrastructure.AckSubscriber\n7.) Containe
