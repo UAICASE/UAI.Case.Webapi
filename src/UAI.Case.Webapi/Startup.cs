@@ -142,10 +142,11 @@ namespace UAI.Case.Webapi
                     res.NamingStrategy = null;  // <<!-- this removes the camelcasing
                 }
             });
-            services.AddSignalR(options => {
+            services.AddSignalR(options =>
+            {
                 options.Hubs.EnableDetailedErrors = true;
                 options.EnableJSONP = true;
-                
+
             });
 
             services.Configure<MvcOptions>(options => {
