@@ -10,9 +10,16 @@ https://www.bountysource.com/issues/38465757-signalr-core-server-crashes-on-clie
 
 
 
-signalr
+signalr-core
+https://radu-matei.github.io/blog/signalr-core/
+
+
 http://stackoverflow.com/questions/28233885/signalr-structuremap-dependency-resolver-specified-for-microsoft-aspnet-signal/28242464#28242464
 http://stackoverflow.com/questions/31793209/signalr-resolving-imessagebus
+
+##posible issue
+https://github.com/aspnet/SignalR-Server/issues/238
+
 
 
 

@@ -227,7 +227,7 @@ namespace UAI.Case.Webapi
             });
 
             app.UseStaticFiles();
-            app.UseWebSockets();
+
 
             app.Map("/signalr", map =>
             {
@@ -247,7 +247,9 @@ namespace UAI.Case.Webapi
                 .AllowCredentials()
             );
 
-             app.UseSignalR();
+
+            app.UseWebSockets();
+            app.UseSignalR();
 
 
 
