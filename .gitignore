@@ -197,3 +197,4 @@ src/*/project.lock.json
 src/UAI.Case.Webapp/Properties/PublishProfiles/
 src/UAI.Case.Webapp/Files/
 src/UAI.Case.Webapi/obj/
+.vs/restore.dg
