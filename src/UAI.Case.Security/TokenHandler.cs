@@ -44,14 +44,14 @@ namespace UAI.Case.Security
                 new Claim(ClaimTypes.Role, usuario.Rol.ToString())
             };
 
-
+            var key = Convert.FromBase64String("my super secret key goes here");
             var jwt = new JwtSecurityToken(
                 issuer: JWT_TOKEN_ISSUER,
                 audience: JWT_TOKEN_AUDIENCE,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
                 expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: new SigningCredentials(Keys.RSAKey, SecurityAlgorithms.RsaSha256Signature));
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.RsaSha256Signature));
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
 
