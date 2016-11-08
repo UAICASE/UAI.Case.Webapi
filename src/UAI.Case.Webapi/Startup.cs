@@ -211,7 +211,7 @@ namespace UAI.Case.Webapi
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
 
-                IssuerSigningKey = new SymmetricSecurityKey(key),
+               // IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidAudience = TokenHandler.JWT_TOKEN_AUDIENCE,
                 ValidIssuer = TokenHandler.JWT_TOKEN_ISSUER,
                 ValidateLifetime = true,

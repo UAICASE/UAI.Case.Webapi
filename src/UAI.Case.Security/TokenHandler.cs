@@ -50,8 +50,9 @@ namespace UAI.Case.Security
                 audience: JWT_TOKEN_AUDIENCE,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.RsaSha256Signature));
+                expires: DateTime.UtcNow.AddHours(1)
+                );
+                //signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.));
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
 
