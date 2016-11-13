@@ -27,6 +27,7 @@ using System.IO;
 using UAI.Case.Domain.Interfaces;
 using System.Dynamic;
 using UAI.Case.Utilities;
+using System.Text;
 
 namespace UAI.Case.Webapi
 {
@@ -206,8 +207,12 @@ namespace UAI.Case.Webapi
 
 
 
-            var key = Convert.FromBase64String("my super secret key goes here");
+            var key = Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes("my super secret key goes here")));
+
+
+
             
+
             var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
             {
 

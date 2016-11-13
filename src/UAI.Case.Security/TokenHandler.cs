@@ -6,6 +6,7 @@ using System.Security.Claims;
 using UAI.Case.Domain.Common;
 using System.Security.Cryptography;
 using System.Collections.Generic;
+using System.Text;
 
 namespace UAI.Case.Security
 {
@@ -44,14 +45,17 @@ namespace UAI.Case.Security
                 new Claim(ClaimTypes.Role, usuario.Rol.ToString())
             };
 
-
+            var key = Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes("my super secret key goes here")));
             var jwt = new JwtSecurityToken(
                 issuer: JWT_TOKEN_ISSUER,
                 audience: JWT_TOKEN_AUDIENCE,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
                 expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: new SigningCredentials(Keys.RSAKey, SecurityAlgorithms.RsaSha256Signature));
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), "HS256"));
+
+
+            
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
 

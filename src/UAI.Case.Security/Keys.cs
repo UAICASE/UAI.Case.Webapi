@@ -11,11 +11,14 @@ namespace UAI.Case.Security
 {
     public static class Keys
     {
+
+  
+
         private static RsaSecurityKey _rsaKey = null;
         private static RSAParameters _rsaParams;
-        
-        
-        
+
+
+
 
         public static RsaSecurityKey RSAKey
         {
@@ -26,7 +29,7 @@ namespace UAI.Case.Security
                     _rsaParams = GetRandomKey();
                     _rsaKey = new RsaSecurityKey(_rsaParams);
 
-                    
+
                 }
 
                 return _rsaKey;
@@ -48,6 +51,9 @@ namespace UAI.Case.Security
                 }
             }
         }
+
+
+
 
     }
 }
